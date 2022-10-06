@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -182,6 +183,25 @@ public class AccountServiceImplTest {
         clientResponse.setStatus(false);
         when(clientService.getClient(accountRequest.getClientId())).thenReturn(clientResponse);
         assertThrows(BadRequestException.class, () -> accountService.saveAccount(accountRequest));
+    }
+
+    @Test
+    @Order(13)
+    void givenValidAccountInfoWhenUpdateAccountThenDoesntThrow() {
+        accountRequest.setType(AccountType.AHORROS.name());
+        when(repository.findById(anyLong())).thenReturn(Optional.of(account));
+        when(mapper.map(any(), eq(AccountResponse.class))).thenReturn(accountResponse);
+        when(mapper.map(any(), eq(Account.class))).thenReturn(account);
+        when(repository.save(any())).thenReturn(account);
+        assertDoesNotThrow(() -> accountService.updateAccount(account.getId(), accountRequest));
+    }
+
+    @Test
+    @Order(13)
+    void givenNotValidValidAccountInfoWhenUpdateAccountThenThrowsNotFoundException() {
+        accountRequest.setType("ok");
+        assertThrows(NotFoundException.class, () -> accountService.updateAccount(account.getId(),
+                accountRequest));
     }
 
 }

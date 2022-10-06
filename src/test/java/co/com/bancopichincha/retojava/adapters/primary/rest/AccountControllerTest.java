@@ -29,6 +29,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -129,6 +130,15 @@ class AccountControllerTest {
         doThrow(NotFoundException.class).when(service).deleteAccount(accountResponse.getId());
         this.mockMvc.perform(delete(baseUrl + "/{id}", accountResponse.getId())
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
+    }
+
+    @Test
+    @Order(8)
+    void givenValidAccountInfoWhenUpdateAccountThenReturnNoContentStatus() throws Exception {
+        this.mockMvc.perform(put(baseUrl + "/{id}", accountResponse.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(accountRequest)))
+                .andExpect(status().isNoContent());
     }
 
 }

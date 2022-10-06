@@ -40,7 +40,7 @@ public class Account {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Movement> movements;
 
 }

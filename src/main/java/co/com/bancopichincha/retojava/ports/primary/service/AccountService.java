@@ -9,6 +9,8 @@ public interface AccountService {
 
     AccountResponse saveAccount(AccountRequest account);
 
+    void updateAccount(long id, AccountRequest account);
+
     List<AccountResponse> getAccounts(Long number, String type, Boolean status, Long clientId);
 
     AccountResponse getAccountByNumber(long number);

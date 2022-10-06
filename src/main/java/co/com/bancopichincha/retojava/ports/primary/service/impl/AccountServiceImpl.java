@@ -37,6 +37,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void updateAccount(long id, AccountRequest account) {
+        AccountType.findAccount(account.getType());
+        getAccount(id);
+        Account accountEntity = mapper.map(account, Account.class);
+        accountEntity.setId(id);
+        repository.save(accountEntity);
+    }
+
+    @Override
     public List<AccountResponse> getAccounts(Long number, String type, Boolean status, Long clientId) {
         if (type != null) {
             AccountType.findAccount(type);

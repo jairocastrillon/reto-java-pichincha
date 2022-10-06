@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,13 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountResponse> saveAccount(@RequestBody @Valid AccountRequest account) {
         return new ResponseEntity<>(service.saveAccount(account), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateAccount(@PathVariable long id,
+                                              @RequestBody @Valid AccountRequest account) {
+        service.updateAccount(id, account);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
