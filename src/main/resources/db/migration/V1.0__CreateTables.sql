@@ -24,7 +24,6 @@ ALTER TABLE account ADD FOREIGN KEY (client_id) REFERENCES client(id);
 CREATE TABLE IF NOT EXISTS movement (
     id IDENTITY PRIMARY KEY,
     submission_date DATE NOT NULL,
-    type VARCHAR(10) NOT NULL,
     amount DOUBLE NOT NULL,
     balance DOUBLE NOT NULL,
     account_id BIGINT NOT NULL

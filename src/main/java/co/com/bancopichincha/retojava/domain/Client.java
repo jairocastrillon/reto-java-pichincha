@@ -3,7 +3,10 @@ package co.com.bancopichincha.retojava.domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,6 +16,9 @@ public class Client extends Person {
     private String clientId;
     private String password;
     private boolean status;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Account> accounts;
 
     public Client() {
         super();

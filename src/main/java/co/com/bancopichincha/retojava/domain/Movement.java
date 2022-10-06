@@ -1,14 +1,11 @@
 package co.com.bancopichincha.retojava.domain;
 
-import co.com.bancopichincha.retojava.domain.enums.MovementType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,9 +30,6 @@ public class Movement {
     private Account account;
 
     private Date submissionDate;
-
-    @Enumerated(EnumType.STRING)
-    private MovementType type;
 
     private double amount;
 

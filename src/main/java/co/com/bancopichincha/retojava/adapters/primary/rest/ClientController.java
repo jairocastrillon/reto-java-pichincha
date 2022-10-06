@@ -2,6 +2,7 @@ package co.com.bancopichincha.retojava.adapters.primary.rest;
 
 import co.com.bancopichincha.retojava.adapters.primary.rest.request.ClientRequest;
 import co.com.bancopichincha.retojava.adapters.primary.rest.response.ClientResponse;
+import co.com.bancopichincha.retojava.adapters.primary.rest.response.ReporteResponse;
 import co.com.bancopichincha.retojava.ports.primary.service.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,6 +49,13 @@ public class ClientController {
     @GetMapping("/{id}")
     public ResponseEntity<ClientResponse> getClient(@PathVariable long id) {
         return new ResponseEntity<>(service.getClient(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/reportes")
+    public ResponseEntity<List<ReporteResponse>> generateReport(@RequestParam("id") long id,
+                                                                @RequestParam("date_start") String dateStart,
+                                                                @RequestParam("date_end") String dateEnd) {
+        return new ResponseEntity<>(service.generateReport(id, dateStart, dateEnd), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

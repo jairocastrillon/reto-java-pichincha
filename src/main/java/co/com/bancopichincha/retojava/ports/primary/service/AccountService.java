@@ -11,6 +11,8 @@ public interface AccountService {
 
     List<AccountResponse> getAccounts(Long number, String type, Boolean status, Long clientId);
 
+    AccountResponse getAccountByNumber(long number);
+
     AccountResponse getAccount(long id);
 
     void deleteAccount(long id);
